@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -146,7 +147,7 @@ fun Greeting(modifier: Modifier = Modifier) {
     //Interfaz
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(17,19,24)
+        color = Color(0xFF0F172A)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             // Pantalla de resultados
@@ -165,45 +166,68 @@ fun Greeting(modifier: Modifier = Modifier) {
             )
 
             // Contenedor de las filas de botones
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "AC", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
+                CalculatorButton(text = "±", onClick = {}, isOperation = true, fontFamily = letracustom)
+                CalculatorButton(text = "%", onClick = { onOperatorClick("%") }, isOperation = true, fontFamily = letracustom)
+                CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom)
+            }
+
+            // Filas numéricas del 7 al 9
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "7", onClick = { onNumberClick(7) }, fontFamily = letracustom)
+                CalculatorButton(text = "8", onClick = { onNumberClick(8) }, fontFamily = letracustom)
+                CalculatorButton(text = "9", onClick = { onNumberClick(9) }, fontFamily = letracustom)
+                CalculatorButton(text = "×", onClick = { onOperatorClick("*") }, isOperation = true, fontFamily = letracustom)
+            }
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "4", onClick = { onNumberClick(4) }, fontFamily = letracustom)
+                CalculatorButton(text = "5", onClick = { onNumberClick(5) }, fontFamily = letracustom)
+                CalculatorButton(text = "6", onClick = { onNumberClick(6) }, fontFamily = letracustom)
+                CalculatorButton(text = "-", onClick = { onOperatorClick("-") }, isOperation = true, fontFamily = letracustom)
+            }
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "1", onClick = { onNumberClick(1) }, fontFamily = letracustom)
+                CalculatorButton(text = "2", onClick = { onNumberClick(2) }, fontFamily = letracustom)
+                CalculatorButton(text = "3", onClick = { onNumberClick(3) }, fontFamily = letracustom)
+                CalculatorButton(text = "+", onClick = { onOperatorClick("+") }, isOperation = true, fontFamily = letracustom)
+            }
+
+            // MODIFICACIÓN: fila especial para que el 0 ocupe dos espacios y . = estén alineados a la derecha
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                horizontalArrangement = Arrangement.SpaceAround
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // COLUMNA 1 (C, 7, 4, 1, 0)
-                Column {
-
-                    CalculatorButton(text = "C", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "7", onClick = { onNumberClick(7) }, fontFamily = letracustom)
-                    CalculatorButton(text = "4", onClick = { onNumberClick(4) }, fontFamily = letracustom)
-                    CalculatorButton(text = "1", onClick = { onNumberClick(1) }, fontFamily = letracustom)
-                    CalculatorButton(text = "0", onClick = { onNumberClick(0) }, fontFamily = letracustom)
-                }
-                // COLUMNA 2 (←, 8, 5, 2, .)
-                Column {
-                    CalculatorButton(text = "←", onClick = { onBackClick() }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "8", onClick = { onNumberClick(8) }, fontFamily = letracustom)
-                    CalculatorButton(text = "5", onClick = { onNumberClick(5) }, fontFamily = letracustom)
-                    CalculatorButton(text = "2", onClick = { onNumberClick(2) }, fontFamily = letracustom)
-                    CalculatorButton(text = ".", onClick = { onDecimalClick() }, fontFamily = letracustom)
-                }
-                // COLUMNA 3 (%, 9, 6, 3, =)
-                Column {
-                    CalculatorButton(text = "%", onClick = { onOperatorClick("%") }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "9", onClick = { onNumberClick(9) }, fontFamily = letracustom)
-                    CalculatorButton(text = "6", onClick = { onNumberClick(6) }, fontFamily = letracustom)
-                    CalculatorButton(text = "3", onClick = { onNumberClick(3) }, fontFamily = letracustom)
-                    CalculatorButton(text = "=", onClick = { onEqualsClick() }, isOperation = true, isEqualsButton = true, fontFamily = letracustom)
-                }
-                // COLUMNA 4 (÷, ×, -, +)
-                Column {
-                    CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "×", onClick = { onOperatorClick("*") }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "-", onClick = { onOperatorClick("-") }, isOperation = true, fontFamily = letracustom)
-                    CalculatorButton(text = "+", onClick = { onOperatorClick("+") }, isOperation = true, fontFamily = letracustom)
-                    Spacer(modifier = Modifier.size(80.dp).padding(4.dp)) // Rellena para igualar altura de columnas
-                }
+                CalculatorButton(
+                    text = "0",
+                    onClick = { onNumberClick(0) },
+                    fontFamily = letracustom,
+                    modifier = Modifier
+                        .weight(2f) // ocupa el espacio de dos botones
+                        .aspectRatio(2f) // proporción visual 2:1
+                )
+                CalculatorButton(
+                    text = ".",
+                    onClick = { onDecimalClick() },
+                    fontFamily = letracustom,
+                    modifier = Modifier
+                        .weight(1f)
+                        .aspectRatio(1f)
+                )
+                CalculatorButton(
+                    text = "=",
+                    onClick = { onEqualsClick() },
+                    isOperation = true,
+                    isEqualsButton = true,
+                    fontFamily = letracustom,
+                    modifier = Modifier
+                        .weight(1f)
+                        .aspectRatio(1f)
+                )
             }
         }
     }
@@ -216,6 +240,7 @@ fun CalculatorButton(
     modifier: Modifier = Modifier,
     isOperation: Boolean = false,
     isEqualsButton: Boolean = false,
+    isAltButton: Boolean = false,
     fontFamily: FontFamily
 ) {
     Button(
@@ -223,13 +248,15 @@ fun CalculatorButton(
         modifier = modifier
             .padding(4.dp)
             .size(80.dp),
+        shape = androidx.compose.foundation.shape.CircleShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = when {
                 isEqualsButton -> Color(0xFFFFA500)
-                isOperation -> Color(0xFF6C6C6C)
-                else -> Color(57, 57, 57)
+                isAltButton -> Color(0xFF7C3AED)
+                isOperation -> Color(0xFF0284C7)
+                else -> Color(0xFF1F2937)
             },
-            contentColor = if (isEqualsButton) Color.White else Color(150, 150, 150)
+            contentColor = if (isEqualsButton) Color.White else Color(255, 255, 255, 255)
         )
     ) {
         Text(text, fontSize = 35.sp, fontFamily = fontFamily)
