@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -49,10 +50,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Codigo logico
 @Composable
 fun Greeting() {
 
-    //Codigo logico
     var displayValue by remember { mutableStateOf("0") }
     var currentNumber: Double? by remember { mutableStateOf(null) }
     var previousNumber: Double? by remember { mutableStateOf(null) }
@@ -157,69 +158,43 @@ fun Greeting() {
             )
 
             // Fila de simbolos
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CalculatorButton(text = "C", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
-                CalculatorButton(text = "±", onClick = {}, isOperation = true, fontFamily = letracustom)
-                CalculatorButton(text = "%", onClick = { onOperatorClick("%") }, isOperation = true, fontFamily = letracustom)
-                CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom)
+            Row(modifier = Modifier.fillMaxWidth().height(80.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "C", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "±", onClick = {}, isOperation = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "%", onClick = { onOperatorClick("%") }, isOperation = true, fontFamily = letracustom,modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom,modifier = Modifier.weight(1f).aspectRatio(1f))
             }
 
             // Fila de numeros del 7 al 9
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CalculatorButton(text = "7", onClick = { onNumberClick(7) }, fontFamily = letracustom)
-                CalculatorButton(text = "8", onClick = { onNumberClick(8) }, fontFamily = letracustom)
-                CalculatorButton(text = "9", onClick = { onNumberClick(9) }, fontFamily = letracustom)
-                CalculatorButton(text = "×", onClick = { onOperatorClick("*") }, isOperation = true, fontFamily = letracustom)
+            Row(modifier = Modifier.fillMaxWidth().height(80.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "7", onClick = { onNumberClick(7) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "8", onClick = { onNumberClick(8) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "9", onClick = { onNumberClick(9) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "×", onClick = { onOperatorClick("*") }, isOperation = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
             }
 
             //Fila de numeros del 4 al 6
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CalculatorButton(text = "4", onClick = { onNumberClick(4) }, fontFamily = letracustom)
-                CalculatorButton(text = "5", onClick = { onNumberClick(5) }, fontFamily = letracustom)
-                CalculatorButton(text = "6", onClick = { onNumberClick(6) }, fontFamily = letracustom)
-                CalculatorButton(text = "-", onClick = { onOperatorClick("-") }, isOperation = true, fontFamily = letracustom)
+            Row(modifier = Modifier.fillMaxWidth().height(80.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "4", onClick = { onNumberClick(4) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "5", onClick = { onNumberClick(5) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "6", onClick = { onNumberClick(6) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "-", onClick = { onOperatorClick("-") }, isOperation = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
             }
 
             //Fila de numeros del 1 al 3
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CalculatorButton(text = "1", onClick = { onNumberClick(1) }, fontFamily = letracustom)
-                CalculatorButton(text = "2", onClick = { onNumberClick(2) }, fontFamily = letracustom)
-                CalculatorButton(text = "3", onClick = { onNumberClick(3) }, fontFamily = letracustom)
-                CalculatorButton(text = "+", onClick = { onOperatorClick("+") }, isOperation = true, fontFamily = letracustom)
+            Row(modifier = Modifier.fillMaxWidth().height(80.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                CalculatorButton(text = "1", onClick = { onNumberClick(1) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "2", onClick = { onNumberClick(2) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "3", onClick = { onNumberClick(3) }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "+", onClick = { onOperatorClick("+") }, isOperation = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
             }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 4.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                // Modificador del boton 0
-                CalculatorButton(
-                    text = "0",
-                    onClick = { onNumberClick(0) },
-                    fontFamily = letracustom,
-                    modifier = Modifier
-                        .weight(2f)
-                        .aspectRatio(2f)
-                )
-                CalculatorButton(
-                    text = ".",
-                    onClick = { onDecimalClick() },
-                    fontFamily = letracustom,
-                    modifier = Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
-                )
-                CalculatorButton(
-                    text = "=",
-                    onClick = { onEqualsClick() },
-                    isOperation = true,
-                    isEqualsButton = true,
-                    fontFamily = letracustom,
-                    modifier = Modifier
-                        .weight(1f)
-                        .aspectRatio(1f)
+            //Fila del numero 0
+            Row(modifier = Modifier.fillMaxWidth().height(80.dp).padding(horizontal = 8.dp, vertical = 4.dp),horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                // Modificador del boton 0 al final
+                CalculatorButton(text = "0", onClick = { onNumberClick(0) }, fontFamily = letracustom, modifier = Modifier.weight(2f).aspectRatio(2f))
+                CalculatorButton(text = ".",onClick = { onDecimalClick() }, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f))
+                CalculatorButton(text = "=", onClick = { onEqualsClick() }, isOperation = true, isEqualsButton = true, fontFamily = letracustom, modifier = Modifier.weight(1f).aspectRatio(1f)
                 )
             }
         }
