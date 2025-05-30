@@ -203,13 +203,14 @@ fun Greeting(modifier: Modifier = Modifier) {
                     .padding(horizontal = 8.dp, vertical = 4.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
+                // Modificador del boton 0
                 CalculatorButton(
                     text = "0",
                     onClick = { onNumberClick(0) },
                     fontFamily = letracustom,
                     modifier = Modifier
-                        .weight(2f) // ocupa el espacio de dos botones
-                        .aspectRatio(2f) // proporción visual 2:1
+                        .weight(2f)
+                        .aspectRatio(2f)
                 )
                 CalculatorButton(
                     text = ".",
@@ -255,7 +256,7 @@ fun CalculatorButton(
                 isEqualsButton -> Color(0xFFFFA500)
                 isAltButton -> Color(0xFF7C3AED)
                 isOperation -> Color(0xFF0284C7)
-                else -> Color(0xFF1F2937)
+                else -> Color(0xFF2D2C2C)
             },
             contentColor = if (isEqualsButton) Color.White else Color(255, 255, 255, 255)
         )
