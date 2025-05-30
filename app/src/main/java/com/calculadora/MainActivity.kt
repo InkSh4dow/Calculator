@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 
+//Letra custom
 val letracustom = FontFamily(
     Font(R.font.sansbold, FontWeight.Normal),
 )
@@ -34,6 +35,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting() {
+
+    //Codigo logico
     var displayValue by remember { mutableStateOf("0") }
     var currentNumber: Double? by remember { mutableStateOf(null) }
     var previousNumber: Double? by remember { mutableStateOf(null) }
@@ -114,6 +117,7 @@ fun Greeting() {
         newCalculationStarted = false
     }
 
+    //Funcion de los botones (De arriba a abajo y de izq a derecha)
     val buttonList = listOf(
         ButtonData("C", { onClearClick() }, isOperation = true),
         ButtonData("±", {}, isOperation = true),
@@ -140,12 +144,13 @@ fun Greeting() {
         ButtonData("=", { onEqualsClick() }, isOperation = true, isEquals = true)
     )
 
+    //Interfaz
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF0F172A)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // Display
+
             Text(
                 text = displayValue,
                 fontSize = 80.sp,
@@ -159,7 +164,7 @@ fun Greeting() {
                 textAlign = TextAlign.End
             )
 
-            // Grid de botones
+            // Organizacion de los botones
             LazyVerticalGrid(
                 columns = GridCells.Fixed(4),
                 modifier = Modifier
@@ -191,6 +196,7 @@ fun Greeting() {
     }
 }
 
+
 data class ButtonData(
     val text: String,
     val onClick: () -> Unit,
@@ -200,6 +206,7 @@ data class ButtonData(
 )
 
 @Composable
+// Diseño de los botones
 fun CalculatorButton(
     text: String,
     onClick: () -> Unit,
