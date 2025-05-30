@@ -158,7 +158,7 @@ fun Greeting() {
 
             // Fila de simbolos
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                CalculatorButton(text = "AC", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
+                CalculatorButton(text = "C", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
                 CalculatorButton(text = "±", onClick = {}, isOperation = true, fontFamily = letracustom)
                 CalculatorButton(text = "%", onClick = { onOperatorClick("%") }, isOperation = true, fontFamily = letracustom)
                 CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom)
@@ -239,8 +239,7 @@ fun CalculatorButton(
     Button(
         onClick = onClick,
         modifier = modifier
-            .padding(4.dp)
-            .size(80.dp),
+            .padding(4.dp),
         shape = androidx.compose.foundation.shape.CircleShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = when {
