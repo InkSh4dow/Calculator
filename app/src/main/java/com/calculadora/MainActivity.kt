@@ -1,7 +1,7 @@
 package com.calculadora
 
 import android.os.Bundle
-import androidx.compose.foundation.layout.Spacer
+import java.util.Locale
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(modifier: Modifier = Modifier) {
+fun Greeting() {
 
     //Codigo logico
     var displayValue by remember { mutableStateOf("0") }
@@ -118,7 +118,7 @@ fun Greeting(modifier: Modifier = Modifier) {
             displayValue = if (result == result.toLong().toDouble()) {
                 result.toLong().toString()
             } else {
-                String.format("%.6f", result).toDouble().toString()
+                String.format(Locale.US, "%.6f", result).toDouble().toString()
             }
             currentNumber = result
             previousNumber = null
@@ -133,15 +133,6 @@ fun Greeting(modifier: Modifier = Modifier) {
         previousNumber = null
         currentOperation = null
         newCalculationStarted = false
-    }
-
-    fun onBackClick() {
-        if (displayValue.isNotEmpty() && displayValue != "0") {
-            displayValue = displayValue.dropLast(1)
-            if (displayValue.isEmpty()) {
-                displayValue = "0"
-            }
-        }
     }
 
     //Interfaz
@@ -256,7 +247,7 @@ fun CalculatorButton(
                 isEqualsButton -> Color(0xFFFFA500)
                 isAltButton -> Color(0xFF7C3AED)
                 isOperation -> Color(0xFF0284C7)
-                else -> Color(0xFF2D2C2C)
+                else -> Color(0xFF2D2D2D)
             },
             contentColor = if (isEqualsButton) Color.White else Color(255, 255, 255, 255)
         )
