@@ -165,7 +165,7 @@ fun Greeting(modifier: Modifier = Modifier) {
                 textAlign = TextAlign.End
             )
 
-            // Contenedor de las filas de botones
+            // Fila de simbolos
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CalculatorButton(text = "AC", onClick = { onClearClick() }, isOperation = true, fontFamily = letracustom)
                 CalculatorButton(text = "±", onClick = {}, isOperation = true, fontFamily = letracustom)
@@ -173,7 +173,7 @@ fun Greeting(modifier: Modifier = Modifier) {
                 CalculatorButton(text = "÷", onClick = { onOperatorClick("/") }, isOperation = true, fontFamily = letracustom)
             }
 
-            // Filas numéricas del 7 al 9
+            // Fila de numeros del 7 al 9
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CalculatorButton(text = "7", onClick = { onNumberClick(7) }, fontFamily = letracustom)
                 CalculatorButton(text = "8", onClick = { onNumberClick(8) }, fontFamily = letracustom)
@@ -181,6 +181,7 @@ fun Greeting(modifier: Modifier = Modifier) {
                 CalculatorButton(text = "×", onClick = { onOperatorClick("*") }, isOperation = true, fontFamily = letracustom)
             }
 
+            //Fila de numeros del 4 al 6
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CalculatorButton(text = "4", onClick = { onNumberClick(4) }, fontFamily = letracustom)
                 CalculatorButton(text = "5", onClick = { onNumberClick(5) }, fontFamily = letracustom)
@@ -188,6 +189,7 @@ fun Greeting(modifier: Modifier = Modifier) {
                 CalculatorButton(text = "-", onClick = { onOperatorClick("-") }, isOperation = true, fontFamily = letracustom)
             }
 
+            //Fila de numeros del 1 al 3
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 CalculatorButton(text = "1", onClick = { onNumberClick(1) }, fontFamily = letracustom)
                 CalculatorButton(text = "2", onClick = { onNumberClick(2) }, fontFamily = letracustom)
@@ -195,7 +197,6 @@ fun Greeting(modifier: Modifier = Modifier) {
                 CalculatorButton(text = "+", onClick = { onOperatorClick("+") }, isOperation = true, fontFamily = letracustom)
             }
 
-            // MODIFICACIÓN: fila especial para que el 0 ocupe dos espacios y . = estén alineados a la derecha
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
