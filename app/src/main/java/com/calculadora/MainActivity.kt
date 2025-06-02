@@ -118,10 +118,20 @@ fun Greeting() {
         newCalculationStarted = false
     }
 
+    fun onToggleSignClick() {
+        if (displayValue != "0" && displayValue != "Error") {
+            displayValue = if (displayValue.startsWith("-")) {
+                displayValue.removePrefix("-")
+            } else {
+                "-$displayValue"
+            }
+        }
+    }
+
     //Funcion de los botones (De arriba a abajo y de izq a derecha)
     val buttonList = listOf(
         ButtonData("C", { onClearClick() }, isOperation = true),
-        ButtonData("±", {}, isOperation = true),
+        ButtonData("±", { onToggleSignClick() }, isOperation = true),
         ButtonData("%", { onOperatorClick("%") }, isOperation = true),
         ButtonData("÷", { onOperatorClick("/") }, isOperation = true),
 

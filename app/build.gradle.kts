@@ -4,9 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
-
-
-
 android {
     namespace = "com.calculadora"
     compileSdk = 35
@@ -63,5 +60,4 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.material)
     implementation(libs.ui.tooling.preview)
-
-    }
+}
