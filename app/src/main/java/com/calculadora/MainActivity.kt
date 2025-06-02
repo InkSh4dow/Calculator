@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.*
@@ -172,24 +173,23 @@ fun Greeting() {
                     .padding(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(buttonList) { item ->
-                    CalculatorButton(
-                        text = item.text,
-                        onClick = item.onClick,
-                        isOperation = item.isOperation,
-                        isEqualsButton = item.isEquals,
-                        fontFamily = letracustom,
-                        modifier = Modifier
-                            .let {
-                                if (item.span == 2) it
-                                    .fillMaxWidth()
-                                    .aspectRatio(2f)
-                                    .then(Modifier)
-                                else it.aspectRatio(1f)
-                            }
-                            .fillMaxWidth()
-                    )
+            )
+            {
+                items(
+                    items = buttonList,
+                    span = { item -> GridItemSpan(item.span)
+                    })
+            { item ->
+                CalculatorButton(
+                    text = item.text,
+                    onClick = item.onClick,
+                    isOperation = item.isOperation,
+                    isEqualsButton = item.isEquals,
+                    fontFamily = letracustom,
+                    modifier = Modifier
+                        .aspectRatio(if (item.span == 2) 2f else 1f)
+                        .fillMaxWidth()
+                )
                 }
             }
         }
