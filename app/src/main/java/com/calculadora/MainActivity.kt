@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 //Letra custom
 val letracustom = FontFamily(
-    Font(R.font.sansbold, FontWeight.Normal),
+    Font(R.font.rubik, FontWeight.Normal),
 )
 
 class MainActivity : ComponentActivity() {
@@ -148,7 +148,7 @@ fun Greeting() {
     //Interfaz
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFF0F172A)
+        color = Color(45, 45, 45)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
 
@@ -221,9 +221,9 @@ fun CalculatorButton(
         shape = androidx.compose.foundation.shape.CircleShape,
         colors = ButtonDefaults.buttonColors(
             containerColor = when {
-                isEqualsButton -> Color(0xFFFFA500)
-                isOperation -> Color(0xFF0284C7)
-                else -> Color(0xFF2D2D2D)
+                isEqualsButton -> Color(255, 165, 0)
+                isOperation -> Color(3, 169, 244)
+                else -> Color(66, 66, 66)
             },
             contentColor = Color.White
         )
