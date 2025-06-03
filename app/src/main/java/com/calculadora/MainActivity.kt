@@ -44,7 +44,7 @@ fun Greeting() {
     var currentOperation: String? by remember { mutableStateOf(null) }
     var newCalculationStarted by remember { mutableStateOf(false) }
 
-    fun onNumberClick(number: Int) {
+    fun numero(number: Int) {
         if (newCalculationStarted) {
             displayValue = number.toString()
             newCalculationStarted = false
@@ -57,7 +57,7 @@ fun Greeting() {
         }
     }
 
-    fun onDecimalClick() {
+    fun decimal() {
         if (newCalculationStarted) {
             displayValue = "0."
             newCalculationStarted = false
@@ -66,7 +66,7 @@ fun Greeting() {
         }
     }
 
-    fun onOperatorClick(operation: String) {
+    fun operacion(operation: String) {
         currentNumber = displayValue.toDoubleOrNull()
         if (currentNumber != null) {
             previousNumber = currentNumber
@@ -75,7 +75,7 @@ fun Greeting() {
         }
     }
 
-    fun onEqualsClick() {
+    fun igual() {
         val num1 = previousNumber ?: return
         val num2 = displayValue.toDoubleOrNull() ?: return
         var result: Double? = null
@@ -110,7 +110,7 @@ fun Greeting() {
         }
     }
 
-    fun onClearClick() {
+    fun borrar() {
         displayValue = "0"
         currentNumber = null
         previousNumber = null
@@ -118,7 +118,7 @@ fun Greeting() {
         newCalculationStarted = false
     }
 
-    fun onToggleSignClick() {
+    fun signo() {
         if (displayValue != "0" && displayValue != "Error") {
             displayValue = if (displayValue.startsWith("-")) {
                 displayValue.removePrefix("-")
@@ -130,29 +130,29 @@ fun Greeting() {
 
     //Funcion de los botones (De arriba a abajo y de izq a derecha)
     val buttonList = listOf(
-        ButtonData("C", { onClearClick() }, isOperation = true),
-        ButtonData("±", { onToggleSignClick() }, isOperation = true),
-        ButtonData("%", { onOperatorClick("%") }, isOperation = true),
-        ButtonData("÷", { onOperatorClick("/") }, isOperation = true),
+        ButtonData("C", { borrar() }, isOperation = true),
+        ButtonData("±", { signo() }, isOperation = true),
+        ButtonData("%", { operacion("%") }, isOperation = true),
+        ButtonData("÷", { operacion("/") }, isOperation = true),
 
-        ButtonData("7", { onNumberClick(7) }),
-        ButtonData("8", { onNumberClick(8) }),
-        ButtonData("9", { onNumberClick(9) }),
-        ButtonData("×", { onOperatorClick("*") }, isOperation = true),
+        ButtonData("7", { numero(7) }),
+        ButtonData("8", { numero(8) }),
+        ButtonData("9", { numero(9) }),
+        ButtonData("×", { operacion("*") }, isOperation = true),
 
-        ButtonData("4", { onNumberClick(4) }),
-        ButtonData("5", { onNumberClick(5) }),
-        ButtonData("6", { onNumberClick(6) }),
-        ButtonData("-", { onOperatorClick("-") }, isOperation = true),
+        ButtonData("4", { numero(4) }),
+        ButtonData("5", { numero(5) }),
+        ButtonData("6", { numero(6) }),
+        ButtonData("-", { operacion("-") }, isOperation = true),
 
-        ButtonData("1", { onNumberClick(1) }),
-        ButtonData("2", { onNumberClick(2) }),
-        ButtonData("3", { onNumberClick(3) }),
-        ButtonData("+", { onOperatorClick("+") }, isOperation = true),
+        ButtonData("1", { numero(1) }),
+        ButtonData("2", { numero(2) }),
+        ButtonData("3", { numero(3) }),
+        ButtonData("+", { operacion("+") }, isOperation = true),
 
-        ButtonData("0", { onNumberClick(0) }, span = 2),
-        ButtonData(".", { onDecimalClick() }),
-        ButtonData("=", { onEqualsClick() }, isOperation = true, isEquals = true)
+        ButtonData("0", { numero(0) }, span = 2),
+        ButtonData(".", { decimal() }),
+        ButtonData("=", { igual() }, isOperation = true, isEquals = true)
     )
 
     //Interfaz
@@ -189,17 +189,17 @@ fun Greeting() {
                     items = buttonList,
                     span = { item -> GridItemSpan(item.span)
                     })
-            { item ->
-                CalculatorButton(
-                    text = item.text,
-                    onClick = item.onClick,
-                    isOperation = item.isOperation,
-                    isEqualsButton = item.isEquals,
-                    fontFamily = letracustom,
-                    modifier = Modifier
-                        .aspectRatio(if (item.span == 2) 2f else 1f)
-                        .fillMaxWidth()
-                )
+                { item ->
+                    CalculatorButton(
+                        text = item.text,
+                        onClick = item.onClick,
+                        isOperation = item.isOperation,
+                        isEqualsButton = item.isEquals,
+                        fontFamily = letracustom,
+                        modifier = Modifier
+                            .aspectRatio(if (item.span == 2) 2f else 1f)
+                            .fillMaxWidth()
+                    )
                 }
             }
         }
