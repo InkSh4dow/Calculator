@@ -1,16 +1,21 @@
 [versions]
 
 androidGradlePlugin = "8.10.1"
+composeBomVersion = "2025.06.00"
 kotlin = "2.1.21"
-composeBom = "2025.05.01"
+composeBom = "2025.06.00"
 androidxCore = "1.16.0"
-androidxLifecycle = "2.9.0"
+androidxLifecycle = "2.9.1"
 kotlinCompilerExtension = "2.1.21"
 androidxActivity = "1.10.1"
+composeCompiler = "2.1.21"
+agp = "8.2.2"
 
 
 [libraries]
 
+androidx-compose-bom-v20240400 = { module = "androidx.compose:compose-bom", version.ref = "composeBomVersion" }
+androidx-compose-ui-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
@@ -28,6 +33,10 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-material = { group = "androidx.compose.material", name = "material" }
+material3 = { module = "androidx.compose.material3:material3" }
+ui = { module = "androidx.compose.ui:ui" }
+ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 
 [plugins]
@@ -35,4 +44,4 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlinCompilerExtension" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composeCompiler" }

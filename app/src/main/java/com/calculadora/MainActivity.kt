@@ -43,6 +43,7 @@ fun Greeting() {
     var previousNumber: Double? by remember { mutableStateOf(null) }
     var currentOperation: String? by remember { mutableStateOf(null) }
     var newCalculationStarted by remember { mutableStateOf(false) }
+    var modoclaro by remember { mutableStateOf(true) }
 
     fun numero(number: Int) {
         if (newCalculationStarted) {
@@ -158,14 +159,14 @@ fun Greeting() {
     //Interfaz
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(45, 45, 45)
+        color = if (modoclaro) Color(45, 45, 45) else Color(230, 230, 230)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
 
             Text(
                 text = displayValue,
                 fontSize = 80.sp,
-                color = Color.White,
+                color = if (modoclaro) Color.White else Color.Black,
                 fontFamily = letracustom,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -174,6 +175,43 @@ fun Greeting() {
                     .wrapContentHeight(Alignment.Bottom),
                 textAlign = TextAlign.End
             )
+
+            Button(
+                onClick = { modoclaro = !modoclaro },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(60.dp)
+                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (modoclaro) Color(66, 66, 66) else Color(200, 200, 200),
+                    contentColor = if (modoclaro) Color.White else Color.Black
+                ),
+                shape = MaterialTheme.shapes.medium
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Modo Oscuro",
+                        fontSize = 20.sp,
+                        fontFamily = letracustom,
+                    )
+                    Switch(
+                        checked = modoclaro,
+                        onCheckedChange = { isChecked ->
+                            modoclaro = isChecked
+                        },
+                        colors = SwitchDefaults.colors(
+                            checkedThumbColor = Color(255, 165, 0),
+                            checkedTrackColor = Color(255, 165, 0).copy(alpha = 0.5f),
+                            uncheckedThumbColor = Color(150, 150, 150),
+                            uncheckedTrackColor = Color(150, 150, 150).copy(alpha = 0.5f)
+                        )
+                    )
+                }
+            }
 
             // Organizacion de los botones
             LazyVerticalGrid(
@@ -195,6 +233,7 @@ fun Greeting() {
                         onClick = item.onClick,
                         isOperation = item.isOperation,
                         isEqualsButton = item.isEquals,
+                        modoclaro = modoclaro,
                         fontFamily = letracustom,
                         modifier = Modifier
                             .aspectRatio(if (item.span == 2) 2f else 1f)
@@ -223,27 +262,42 @@ fun CalculatorButton(
     modifier: Modifier = Modifier,
     isOperation: Boolean = false,
     isEqualsButton: Boolean = false,
+    modoclaro: Boolean,
     fontFamily: FontFamily
 ) {
     Button(
         onClick = onClick,
         modifier = modifier.padding(4.dp),
         shape = androidx.compose.foundation.shape.CircleShape,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = when {
-                isEqualsButton -> Color(255, 165, 0)
-                isOperation -> Color(3, 169, 244)
-                else -> Color(66, 66, 66)
-            },
-            contentColor = Color.White
-        )
+        colors = if (modoclaro) {
+            ButtonDefaults.buttonColors(
+                containerColor = when {
+                    isEqualsButton -> Color(255, 165, 0)
+                    isOperation -> Color(3, 169, 244)
+                    else -> Color(66, 66, 66)
+                },
+                contentColor = Color.White
+            )
+        } else {
+            ButtonDefaults.buttonColors(
+                containerColor = when {
+                    isEqualsButton -> Color(255, 165, 0)
+                    isOperation -> Color(3, 169, 244)
+                    else -> Color(255, 255, 255, 255)
+                },
+                contentColor = Color.Black
+            )
+        }
     ) {
         Text(text, fontSize = 35.sp, fontFamily = fontFamily)
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Greeting()
 }
+

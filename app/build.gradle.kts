@@ -1,6 +1,7 @@
-plugins {
+    plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+        alias(libs.plugins.composeCompiler)
 }
 
 android {
@@ -36,6 +37,7 @@ android {
     buildFeatures {
         compose = true
     }
+
 }
 
 dependencies {
@@ -59,4 +61,11 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.material)
     implementation(libs.ui.tooling.preview)
+    implementation(libs.ui)
+    debugImplementation(libs.ui.tooling)
+    implementation(platform("androidx.compose:compose-bom:2025.06.00"))
+    implementation("androidx.compose.ui:ui-graphics")
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    implementation("androidx.compose.material3:material3")
+
 }
