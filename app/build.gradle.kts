@@ -1,7 +1,7 @@
     plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-        alias(libs.plugins.composeCompiler)
+        alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -63,9 +63,9 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.ui)
     debugImplementation(libs.ui.tooling)
-    implementation(platform("androidx.compose:compose-bom:2025.06.00"))
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
 
 }
