@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
@@ -121,7 +120,7 @@ fun CalculatorScreen() {
                                 isEqualsButton = item.isEquals,
                                 modoclaro = modoclaro,
                                 fontFamily = letracustom,
-                                isLandscape = isLandscape,
+                                isLandscape = true,
                                 modifier = Modifier
                                     .aspectRatio(if (item.span == 2) 2f else 1f)
                                     .fillMaxWidth()
@@ -181,7 +180,7 @@ fun CalculatorScreen() {
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         items(
-                            items = buttonList, // Usa la buttonList definida para portrait
+                            items = buttonList,
                             span = { GridItemSpan(it.span) }
                         ) { item ->
                             CalculatorButton(
@@ -191,7 +190,7 @@ fun CalculatorScreen() {
                                 isEqualsButton = item.isEquals,
                                 modoclaro = modoclaro,
                                 fontFamily = letracustom,
-                                isLandscape = isLandscape,
+                                isLandscape = false,
                                 modifier = Modifier
                                     .aspectRatio(if (item.span == 2) 2f else 1f)
                                     .fillMaxWidth()
