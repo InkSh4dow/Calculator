@@ -25,7 +25,9 @@ fun CalculatorButton(
     isOperation: Boolean = false,
     isEqualsButton: Boolean = false,
     modoclaro: Boolean,
-    fontFamily: FontFamily
+    fontFamily: FontFamily,
+    isLandscape: Boolean
+
 ) {
     Button(
         onClick = onClick,
@@ -51,7 +53,11 @@ fun CalculatorButton(
             )
         }
     ) {
-        Text(text, fontSize = 35.sp, fontFamily = fontFamily)
+        Text(
+            text = text,
+            fontSize = if (isLandscape) 18.sp else 35.sp,
+            fontFamily = fontFamily
+        )
     }
 }
 

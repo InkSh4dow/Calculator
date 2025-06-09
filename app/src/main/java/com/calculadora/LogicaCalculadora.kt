@@ -1,4 +1,4 @@
-package com.calculadora.logic
+package com.calculadora
 
 import java.util.Locale
 

@@ -8,9 +8,16 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
-import com.calculadora.logic.CalculatorLogic
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DarkMode
+import androidx.compose.material.icons.filled.LightMode
 
+val letracustom = FontFamily(
+    Font(R.font.rubik, FontWeight.Normal),
+)
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CalculatorScreen() {
     val logic = remember { CalculatorLogic() }
@@ -42,57 +49,126 @@ fun CalculatorScreen() {
         ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true)
     )
 
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = if (modoclaro) Color(45, 45, 45) else Color(230, 230, 230)
-    ) {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Text(
-                text = logic.displayValue,
-                fontSize = 80.sp,
-                color = if (modoclaro) Color.White else Color.Black,
-                fontFamily = FontFamily.Default,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(16.dp),
-                textAlign = TextAlign.End
-            )
-
-            Button(
-                onClick = { modoclaro = !modoclaro },
-                modifier = Modifier.fillMaxWidth().height(60.dp).padding(8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (modoclaro) Color(66, 66, 66) else Color(200, 200, 200),
-                    contentColor = if (modoclaro) Color.White else Color.Black
-                )
-            ) {
-                Text("Modo Oscuro")
-            }
-
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(4),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(
-                    items = buttonList,
-                    span = { GridItemSpan(it.span) }
-                ) { item ->
-                    CalculatorButton(
-                        text = item.text,
-                        onClick = item.onClick,
-                        isOperation = item.isOperation,
-                        isEqualsButton = item.isEquals,
-                        modoclaro = modoclaro,
-                        fontFamily = FontFamily.Default,
-                        modifier = Modifier
-                            .aspectRatio(if (item.span == 2) 2f else 1f)
-                            .fillMaxWidth()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        text = "",
+                        fontFamily = letracustom,
+                        fontSize = 20.sp,
+                        color = if (modoclaro) Color.White else Color.Black
                     )
+                },
+                actions = {
+                    IconButton(onClick = { modoclaro = !modoclaro }) {
+                        Icon(
+                            imageVector = if (modoclaro) Icons.Default.DarkMode else Icons.Default.LightMode,
+                            contentDescription = "Modo Oscuro",
+                            tint = if (modoclaro) Color.White else Color.Black
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = if (modoclaro) Color(45, 45, 45) else Color(230, 230, 230)
+                )
+            )
+        },
+        containerColor = if (modoclaro) Color(45, 45, 45) else Color(230, 230, 230)
+    ) { paddingValues ->
+
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            val isLandscape = this.maxWidth > this.maxHeight
+
+            if (isLandscape) {
+                Row(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = logic.displayValue,
+                        fontSize = 49.sp,
+                        fontFamily = letracustom,
+                        color = if (modoclaro) Color.White else Color.Black,
+                        modifier = Modifier
+                            .weight(1f)
+                            .wrapContentHeight(align = Alignment.Bottom)
+                            .padding(16.dp),
+                        textAlign = TextAlign.End
+                    )
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(5),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(
+                            items = buttonList,
+                            span = { GridItemSpan(it.span) }
+                        ) { item ->
+                            CalculatorButton(
+                                text = item.text,
+                                onClick = item.onClick,
+                                isOperation = item.isOperation,
+                                isEqualsButton = item.isEquals,
+                                modoclaro = modoclaro,
+                                fontFamily = letracustom,
+                                isLandscape = isLandscape,
+                                modifier = Modifier
+                                    .aspectRatio(if (item.span == 2) 2f else 1f)
+                                    .fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Text(
+                        text = logic.displayValue,
+                        fontSize = 80.sp,
+                        fontFamily = letracustom,
+                        color = if (modoclaro) Color.White else Color.Black,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .padding(16.dp),
+                        textAlign = TextAlign.End
+                    )
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(4),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(
+                            items = buttonList,
+                            span = { GridItemSpan(it.span) }
+                        ) { item ->
+                            CalculatorButton(
+                                text = item.text,
+                                onClick = item.onClick,
+                                isOperation = item.isOperation,
+                                isEqualsButton = item.isEquals,
+                                modoclaro = modoclaro,
+                                fontFamily = letracustom,
+                                isLandscape = isLandscape,
+                                modifier = Modifier
+                                    .aspectRatio(if (item.span == 2) 2f else 1f)
+                                    .fillMaxWidth()
+                            )
+                        }
+                    }
                 }
             }
         }
