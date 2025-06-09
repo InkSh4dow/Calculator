@@ -10,8 +10,10 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DarkMode
-import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.twotone.DarkMode //
+import androidx.compose.material.icons.twotone.LightMode //
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 
 val letracustom = FontFamily(
     Font(R.font.rubik, FontWeight.Normal),
@@ -23,34 +25,9 @@ fun CalculatorScreen() {
     val logic = remember { CalculatorLogic() }
     var modoclaro by remember { mutableStateOf(true) }
 
-    val buttonList = listOf(
-        ButtonData("C", { logic.clear() }, isOperation = true),
-        ButtonData("±", { logic.signo() }, isOperation = true),
-        ButtonData("%", { logic.operacion("%") }, isOperation = true),
-        ButtonData("÷", { logic.operacion("/") }, isOperation = true),
-
-        ButtonData("7", { logic.numero(7) }),
-        ButtonData("8", { logic.numero(8) }),
-        ButtonData("9", { logic.numero(9) }),
-        ButtonData("×", { logic.operacion("*") }, isOperation = true),
-
-        ButtonData("4", { logic.numero(4) }),
-        ButtonData("5", { logic.numero(5) }),
-        ButtonData("6", { logic.numero(6) }),
-        ButtonData("-", { logic.operacion("-") }, isOperation = true),
-
-        ButtonData("1", { logic.numero(1) }),
-        ButtonData("2", { logic.numero(2) }),
-        ButtonData("3", { logic.numero(3) }),
-        ButtonData("+", { logic.operacion("+") }, isOperation = true),
-
-        ButtonData("0", { logic.numero(0) }, span = 2),
-        ButtonData(".", { logic.decimal() }),
-        ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true)
-    )
-
     Scaffold(
         topBar = {
+
             TopAppBar(
                 title = {
                     Text(
@@ -63,7 +40,7 @@ fun CalculatorScreen() {
                 actions = {
                     IconButton(onClick = { modoclaro = !modoclaro }) {
                         Icon(
-                            imageVector = if (modoclaro) Icons.Default.DarkMode else Icons.Default.LightMode,
+                            imageVector = if (modoclaro) Icons.TwoTone.DarkMode else Icons.TwoTone.LightMode,
                             contentDescription = "Modo Oscuro",
                             tint = if (modoclaro) Color.White else Color.Black
                         )
@@ -85,6 +62,32 @@ fun CalculatorScreen() {
             val isLandscape = this.maxWidth > this.maxHeight
 
             if (isLandscape) {
+                val buttonList = listOf(
+
+                    ButtonData("C", { logic.clear() }, isOperation = true),
+                    ButtonData("7", { logic.numero(7) }),
+                    ButtonData("8", { logic.numero(8) }),
+                    ButtonData("9", { logic.numero(9) }),
+                    ButtonData("÷", { logic.operacion("/") }, isOperation = true),
+
+                    ButtonData("±", { logic.signo() }, isOperation = true),
+                    ButtonData("4", { logic.numero(4) }),
+                    ButtonData("5", { logic.numero(5) }),
+                    ButtonData("6", { logic.numero(6) }),
+                    ButtonData("×", { logic.operacion("*") }, isOperation = true),
+
+                    ButtonData("%", { logic.operacion("%") }, isOperation = true),
+                    ButtonData("1", { logic.numero(1) }),
+                    ButtonData("2", { logic.numero(2) }),
+                    ButtonData("3", { logic.numero(3) }),
+                    ButtonData("-", { logic.operacion("-") }, isOperation = true),
+
+                    ButtonData(".", { logic.decimal() }),
+                    ButtonData("0", { logic.numero(0) }, span = 2),
+                    ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true),
+                    ButtonData("+", { logic.operacion("+") }, isOperation = true),
+                )
+
                 Row(modifier = Modifier.fillMaxSize()) {
                     Text(
                         text = logic.displayValue,
@@ -128,6 +131,32 @@ fun CalculatorScreen() {
                 }
 
             } else {
+                val buttonList = listOf(
+                    ButtonData("C", { logic.clear() }, isOperation = true),
+                    ButtonData("±", { logic.signo() }, isOperation = true),
+                    ButtonData("%", { logic.operacion("%") }, isOperation = true),
+                    ButtonData("÷", { logic.operacion("/") }, isOperation = true),
+
+                    ButtonData("7", { logic.numero(7) }),
+                    ButtonData("8", { logic.numero(8) }),
+                    ButtonData("9", { logic.numero(9) }),
+                    ButtonData("×", { logic.operacion("*") }, isOperation = true),
+
+                    ButtonData("4", { logic.numero(4) }),
+                    ButtonData("5", { logic.numero(5) }),
+                    ButtonData("6", { logic.numero(6) }),
+                    ButtonData("-", { logic.operacion("-") }, isOperation = true),
+
+                    ButtonData("1", { logic.numero(1) }),
+                    ButtonData("2", { logic.numero(2) }),
+                    ButtonData("3", { logic.numero(3) }),
+                    ButtonData("+", { logic.operacion("+") }, isOperation = true),
+
+                    ButtonData("0", { logic.numero(0) }, span = 2),
+                    ButtonData(".", { logic.decimal() }),
+                    ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true)
+                )
+
                 Column(
                     modifier = Modifier.fillMaxSize()
                 ) {
@@ -152,7 +181,7 @@ fun CalculatorScreen() {
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
                         items(
-                            items = buttonList,
+                            items = buttonList, // Usa la buttonList definida para portrait
                             span = { GridItemSpan(it.span) }
                         ) { item ->
                             CalculatorButton(
