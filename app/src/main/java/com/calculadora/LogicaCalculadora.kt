@@ -1,6 +1,5 @@
 package com.calculadora
 
-import java.util.Locale
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -42,7 +41,7 @@ class CalculatorLogic {
         if (currentNumber != null) {
             previousNumber = currentNumber
             currentOperation = operation
-            operationText = "${displayValue} $operation"
+            operationText = "$displayValue $operation"
             newCalculationStarted = true
         }
     }
