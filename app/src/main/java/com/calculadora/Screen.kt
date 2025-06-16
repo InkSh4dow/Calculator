@@ -11,7 +11,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.twotone.DarkMode
 import androidx.compose.material.icons.twotone.LightMode
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 val letracustom = FontFamily(
