@@ -2,8 +2,7 @@ Una calculadora basica
 
 Hecha en Kotlin
 Con Jetpack Compose
+Y con modo oscuro
 
-Funciones + - * / %
-
-Trabajando en el modo oscuro*
+Es mi primer proyecto en este lenguaje de programacion
 
