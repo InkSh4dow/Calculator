@@ -1,9 +1,15 @@
 package com.calculadora
 
 import java.util.Locale
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 class CalculatorLogic {
-    var displayValue: String = "0"
+    var operationText by mutableStateOf("")
+        private set
+    var displayValue by mutableStateOf("0")
+        private set
     var currentNumber: Double? = null
     var previousNumber: Double? = null
     var currentOperation: String? = null
@@ -36,6 +42,7 @@ class CalculatorLogic {
         if (currentNumber != null) {
             previousNumber = currentNumber
             currentOperation = operation
+            operationText = "${displayValue} $operation"
             newCalculationStarted = true
         }
     }
@@ -60,10 +67,13 @@ class CalculatorLogic {
         }
 
         result?.let {
-            displayValue = if (it == it.toLong().toDouble()) {
-                it.toLong().toString()
+            val num1Text = if (num1 % 1.0 == 0.0) num1.toInt().toString() else num1.toString()
+            val num2Text = if (num2 % 1.0 == 0.0) num2.toInt().toString() else num2.toString()
+            operationText = "$num1Text $currentOperation $num2Text"
+            displayValue = if (it % 1.0 == 0.0) {
+                it.toInt().toString()
             } else {
-                String.format(Locale.US, "%.6f", it).toDouble().toString()
+                it.toString().trimEnd('0').trimEnd('.')
             }
             currentNumber = result
             previousNumber = null

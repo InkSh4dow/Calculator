@@ -9,8 +9,8 @@ import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.DarkMode //
-import androidx.compose.material.icons.twotone.LightMode //
+import androidx.compose.material.icons.twotone.DarkMode
+import androidx.compose.material.icons.twotone.LightMode
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -26,16 +26,8 @@ fun CalculatorScreen() {
 
     Scaffold(
         topBar = {
-
             TopAppBar(
-                title = {
-                    Text(
-                        text = "",
-                        fontFamily = letracustom,
-                        fontSize = 20.sp,
-                        color = if (modoclaro) Color.White else Color.Black
-                    )
-                },
+                title = { Text("") },
                 actions = {
                     IconButton(onClick = { modoclaro = !modoclaro }) {
                         Icon(
@@ -60,9 +52,8 @@ fun CalculatorScreen() {
         ) {
             val isLandscape = this.maxWidth > this.maxHeight
 
-            if (isLandscape) {
-                val buttonList = listOf(
-
+            val buttonList = if (isLandscape) {
+                listOf(
                     ButtonData("C", { logic.clear() }, isOperation = true),
                     ButtonData("7", { logic.numero(7) }),
                     ButtonData("8", { logic.numero(8) }),
@@ -86,51 +77,8 @@ fun CalculatorScreen() {
                     ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true),
                     ButtonData("+", { logic.operacion("+") }, isOperation = true),
                 )
-
-                Row(modifier = Modifier.fillMaxSize()) {
-                    Text(
-                        text = logic.displayValue,
-                        fontSize = 49.sp,
-                        fontFamily = letracustom,
-                        color = if (modoclaro) Color.White else Color.Black,
-                        modifier = Modifier
-                            .weight(1f)
-                            .wrapContentHeight(align = Alignment.Bottom)
-                            .padding(16.dp),
-                        textAlign = TextAlign.End
-                    )
-
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(5),
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxHeight()
-                            .padding(8.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    ) {
-                        items(
-                            items = buttonList,
-                            span = { GridItemSpan(it.span) }
-                        ) { item ->
-                            CalculatorButton(
-                                text = item.text,
-                                onClick = item.onClick,
-                                isOperation = item.isOperation,
-                                isEqualsButton = item.isEquals,
-                                modoclaro = modoclaro,
-                                fontFamily = letracustom,
-                                isLandscape = true,
-                                modifier = Modifier
-                                    .aspectRatio(if (item.span == 2) 2f else 1f)
-                                    .fillMaxWidth()
-                            )
-                        }
-                    }
-                }
-
             } else {
-                val buttonList = listOf(
+                listOf(
                     ButtonData("C", { logic.clear() }, isOperation = true),
                     ButtonData("±", { logic.signo() }, isOperation = true),
                     ButtonData("%", { logic.operacion("%") }, isOperation = true),
@@ -155,21 +103,86 @@ fun CalculatorScreen() {
                     ButtonData(".", { logic.decimal() }),
                     ButtonData("=", { logic.igual() }, isOperation = true, isEquals = true)
                 )
+            }
 
-                Column(
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        text = logic.displayValue,
-                        fontSize = 80.sp,
-                        fontFamily = letracustom,
-                        color = if (modoclaro) Color.White else Color.Black,
+            if (isLandscape) {
+                Row(modifier = Modifier.fillMaxSize()) {
+                    Column(
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .padding(16.dp),
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        Text(
+                            text = logic.operationText,
+                            fontSize = 24.sp,
+                            fontFamily = letracustom,
+                            color = if (modoclaro) Color.LightGray else Color.DarkGray,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            text = logic.displayValue,
+                            fontSize = 49.sp,
+                            fontFamily = letracustom,
+                            color = if (modoclaro) Color.White else Color.Black,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(5),
+                        modifier = Modifier
+                            .weight(1f)
+                            .fillMaxHeight()
+                            .padding(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        items(buttonList, span = { GridItemSpan(it.span) }) { item ->
+                            CalculatorButton(
+                                text = item.text,
+                                onClick = item.onClick,
+                                isOperation = item.isOperation,
+                                isEqualsButton = item.isEquals,
+                                modoclaro = modoclaro,
+                                fontFamily = letracustom,
+                                isLandscape = true,
+                                modifier = Modifier
+                                    .aspectRatio(if (item.span == 2) 2f else 1f)
+                                    .fillMaxWidth()
+                            )
+                        }
+                    }
+                }
+            } else {
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f)
                             .padding(16.dp),
-                        textAlign = TextAlign.End
-                    )
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        Text(
+                            text = logic.operationText,
+                            fontSize = 26.sp,
+                            fontFamily = letracustom,
+                            color = if (modoclaro) Color.LightGray else Color.DarkGray,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        Text(
+                            text = logic.displayValue,
+                            fontSize = 80.sp,
+                            fontFamily = letracustom,
+                            color = if (modoclaro) Color.White else Color.Black,
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
 
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(4),
@@ -179,10 +192,7 @@ fun CalculatorScreen() {
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                     ) {
-                        items(
-                            items = buttonList,
-                            span = { GridItemSpan(it.span) }
-                        ) { item ->
+                        items(buttonList, span = { GridItemSpan(it.span) }) { item ->
                             CalculatorButton(
                                 text = item.text,
                                 onClick = item.onClick,
